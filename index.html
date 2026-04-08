@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Happy Blossom | For You 🌸</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', 'Segoe UI', sans-serif;
+            background: linear-gradient(145deg, #fff5f0 0%, #ffe4ee 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* container utama */
+        .app-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.5rem 1.2rem;
+        }
+
+        /* header */
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #e86a7a, #f3a59b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .hero p {
+            color: #b56e7a;
+            margin-top: 0.3rem;
+        }
+
+        /* grid 2 kolom untuk konten utama */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        /* card style */
+        .card {
+            background: rgba(255, 250, 245, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 15px 35px rgba(255, 120, 130, 0.15);
+            border: 1px solid rgba(255, 200, 200, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #d47a8a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid #ffb7c2;
+            padding-left: 12px;
+        }
+
+        /* daily flower */
+        .daily-flower {
+            text-align: center;
+        }
+
+        .flower-icon-large {
+            font-size: 5rem;
+            margin: 0.5rem 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .daily-message {
+            background: #fff0ed;
+            border-radius: 60px;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            font-weight: 500;
+            color: #b45f6f;
+        }
+
+        /* mood booster buttons */
+        .mood-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .mood-btn {
+            background: #ffd9df;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .mood-btn:hover {
+            transform: scale(1.05);
+            background: #ffbfc9;
+        }
+
+        .booster-result {
+            min-height: 70px;
+            background: #fff5f2;
+            border-radius: 30px;
+            padding: 1rem;
+            text-align: center;
+            margin-top: 0.8rem;
+        }
+
+        /* bouquet builder */
+        .builder-area {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .flower-choices {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .flower-choice {
+            background: #ffe2e8;
+            border-radius: 60px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1.2rem;
+        }
+
+        .flower-choice:hover {
+            background: #ffc0cc;
+            transform: scale(1.05);
+        }
+
+        .bouquet-preview {
+            background: #fff9f5;
+            border-radius: 2rem;
+            padding: 1rem;
+            min-height: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            font-size: 2rem;
+        }
+
+        .btn-capture {
+            background: #ffb7c2;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        /* surprise gift box */
+        .gift-box {
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .gift-icon {
+            font-size: 4rem;
+            transition: 0.2s;
+        }
+
+        .gift-box:hover .gift-icon {
+            transform: scale(1.1);
+        }
+
+        .surprise-content {
+            margin-top: 1rem;
+            background: #fff0ed;
+            border-radius: 30px;
+            padding: 1rem;
+            display: none;
+        }
+
+        .surprise-content.show {
+            display: block;
+            animation: fadePop 0.4s ease;
+        }
+
+        @keyframes fadePop {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* full-width section */
+        .full-card {
+            background: rgba(255, 248, 245, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            text-align: center;
+            border: 1px solid #ffd9df;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            font-size: 0.75rem;
+            color: #d48c9a;
+        }
+
+        @media (max-width: 800px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .hero h1 { font-size: 1.6rem; }
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Header -->
+    <div class="hero">
+        <h1>🌸 for you, sunshine 🌸</h1>
+        <p>sedikit kebahagiaan untuk membuat harimu lebih indah</p>
+    </div>
+
+    <!-- Grid utama -->
+    <div class="main-grid">
+        <!-- 1. Daily Flower -->
+        <div class="card daily-flower">
+            <h2><i class="fas fa-calendar-alt"></i> today's flower</h2>
+            <div class="flower-icon-large" id="dailyFlowerIcon">🌷</div>
+            <div class="daily-message" id="dailyMessage">
+                "Kamu seperti bunga yang mekar di pagi hari — cerah dan penuh harapan."
+            </div>
+            <button class="mood-btn" id="refreshDailyBtn" style="background:#ffe0e5;"><i class="fas fa-sync-alt"></i> ganti bunga & pesan</button>
+        </div>
+
+        <!-- 2. Mood Booster -->
+        <div class="card">
+            <h2><i class="fas fa-heart"></i> mood booster</h2>
+            <div class="mood-buttons">
+                <button class="mood-btn" data-mood="senyum">😊 butuh senyum</button>
+                <button class="mood-btn" data-mood="semangat">✨ butuh semangat</button>
+                <button class="mood-btn" data-mood="tenang">🕊️ butuh tenang</button>
+            </div>
+            <div class="booster-result" id="boosterResult">
+                Klik tombol di atas untuk menerima kata-kata spesial ✨
+            </div>
+        </div>
+
+        <!-- 3. Virtual Bouquet Builder -->
+        <div class="card">
+            <h2><i class="fas fa-palette"></i> virtual bouquet builder</h2>
+            <div class="builder-area">
+                <div class="flower-choices">
+                    <span class="flower-choice" data-flower="🌹">🌹 Mawar</span>
+                    <span class="flower-choice" data-flower="🌷">🌷 Tulip</span>
+                    <span class="flower-choice" data-flower="🌸">🌸 Sakura</span>
+                    <span class="flower-choice" data-flower="🌼">🌼 Daisy</span>
+                    <span class="flower-choice" data-flower="🌻">🌻 Sunflower</span>
+                    <span class="flower-choice" data-flower="💐">💐 Buket</span>
+                    <span class="flower-choice" data-flower="🪷">🪷 Lotus</span>
+                    <span class="flower-choice" data-flower="🎀">🎀 Pita</span>
+                </div>
+                <div class="bouquet-preview" id="bouquetPreview">
+                    ✨ klik bunga untuk merangkai buketmu ✨
+                </div>
+                <button class="btn-capture" id="captureBouquetBtn"><i class="fas fa-camera"></i> screenshot & simpan</button>
+                <button class="btn-capture" id="resetBouquetBtn" style="background:#e6cfd4;"><i class="fas fa-trash-alt"></i> reset buket</button>
+            </div>
+        </div>
+
+        <!-- 4. Surprise Gift Box -->
+        <div class="card gift-box" id="giftBox">
+            <h2><i class="fas fa-gift"></i> surprise for you</h2>
+            <div class="gift-icon">🎁</div>
+            <p style="margin-top: 8px; font-size:0.8rem;">klik kotak hadiah!</p>
+            <div class="surprise-content" id="surpriseContent">
+                <i class="fas fa-heart" style="color:#ff7c9e; font-size:2rem;"></i>
+                <p style="margin: 10px 0;">✨ surprise! ✨</p>
+                <p id="surpriseText">Kamu istimewa, hari ini dan selamanya 💖</p>
+                <div id="confettiArea"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer tambahan: info interaksi -->
+    <div class="full-card">
+        <p style="color:#c27787;">💕 setiap kali kamu tersenyum, ada bunga yang mekar di hatiku 💕</p>
+        <div style="margin-top: 12px; font-size:0.8rem;">
+            <i class="fas fa-mouse-pointer"></i> klik bunga di builder | <i class="fas fa-gift"></i> buka kejutan | <i class="fas fa-heartbeat"></i> mood booster
+        </div>
+    </div>
+    <footer>
+        🌸 dibuat dengan penuh cinta untuk kebahagiaanmu 🌸
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // ======================= DATA =======================
+        // Daily flowers & messages
+        const flowersData = [
+            { icon: "🌷", msg: "Seperti tulip yang mekar, kamu membawa keindahan ke setiap sudut." },
+            { icon: "🌹", msg: "Mawar merah mengingatkanku pada hatimu yang hangat dan berani." },
+            { icon: "🌸", msg: "Sakura yang lembut — sesempurna senyummu yang menenangkan." },
+            { icon: "🌼", msg: "Daisy ceria! Teruslah bersinar, dunia butuh cahayamu." },
+            { icon: "🌻", msg: "Bunga matahari selalu menghadap cahaya — seperti kamu yang kuat." },
+            { icon: "💐", msg: "Buket bunga indah untukmu: kamu pantas mendapatkan semua yang terbaik." },
+            { icon: "🪷", msg: "Bunga teratai mengajarkan ketenangan — kamu sangat berharga." },
+            { icon: "🌺", msg: "Kembang sepatu yang eksotis — unik dan cantik, seperti dirimu." }
+        ];
+
+        // Mood booster responses
+        const moodMessages = {
+            senyum: [
+                "😊 Senyummu adalah matahari di hari yang mendung. Jangan pernah berhenti tersenyum!",
+                "🌸 Tersenyumlah, karena seseorang di luar sana merasa beruntung mengenalmu.",
+                "💖 Kamu punya senyum terindah — buktinya hatiku ikut berbunga."
+            ],
+            semangat: [
+                "✨ Kamu lebih kuat dari yang kamu kira! Hari ini, taklukkan dunia dengan senyum!",
+                "💪 Kamu hebat! Setiap langkah kecilmu adalah kemenangan yang luar biasa.",
+                "🌟 Bintang terang adalah kamu. Teruslah bersinar, jangan padam!"
+            ],
+            tenang: [
+                "🕊️ Tarik napas... kamu aman, kamu dicintai, dan semuanya akan baik-baik saja.",
+                "🌙 Beristirahatlah sejenak, kamu sudah berusaha cukup hari ini.",
+                "🍃 Seperti angin yang lembut, biarkan hatimu tenang dan damai."
+            ]
+        };
+
+        // =============== 1. DAILY FLOWER ===============
+        function updateDailyRandom() {
+            const randomIndex = Math.floor(Math.random() * flowersData.length);
+            const flower = flowersData[randomIndex];
+            document.getElementById('dailyFlowerIcon').innerHTML = flower.icon;
+            document.getElementById('dailyMessage').innerHTML = `"${flower.msg}"`;
+            // animasi kecil
+            const iconEl = document.getElementById('dailyFlowerIcon');
+            iconEl.style.animation = 'none';
+            setTimeout(() => iconEl.style.animation = 'float 3s ease-in-out infinite', 10);
+        }
+
+        document.getElementById('refreshDailyBtn').addEventListener('click', () => {
+            updateDailyRandom();
+            // efek confetti kecil
+            triggerMiniConfetti();
+        });
+
+        // =============== 2. MOOD BOOSTER ===============
+        const moodBtns = document.querySelectorAll('.mood-btn[data-mood]');
+        const boosterResult = document.getElementById('boosterResult');
+        
+        moodBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const mood = btn.getAttribute('data-mood');
+                const messages = moodMessages[mood];
+                const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+                boosterResult.innerHTML = `<div style="animation: fadePop 0.3s;">${randomMsg}</div>`;
+                // tambah efek love
+                createFloatingHeart();
+            });
+        });
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.bottom = '20px';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+            heart.style.pointerEvents = 'none';
+            heart.style.zIndex = '999';
+            heart.style.opacity = '0.8';
+            heart.style.animation = 'floatUpHeart 1.2s ease-out forwards';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1200);
+        }
+        
+        // style animasi heart
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = `
+            @keyframes floatUpHeart {
+                0% { transform: translateY(0) scale(0.6); opacity: 1; }
+                100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        // =============== 3. BOUQUET BUILDER ===============
+        let bouquetFlowers = [];
+        const bouquetPreview = document.getElementById('bouquetPreview');
+        const flowerChoices = document.querySelectorAll('.flower-choice');
+        
+        flowerChoices.forEach(choice => {
+            choice.addEventListener('click', () => {
+                const flowerIcon = choice.getAttribute('data-flower');
+                bouquetFlowers.push(flowerIcon);
+                renderBouquet();
+                triggerMiniConfetti();
+            });
+        });
+        
+        function renderBouquet() {
+            if (bouquetFlowers.length === 0) {
+                bouquetPreview.innerHTML = '✨ klik bunga untuk merangkai buketmu ✨';
+                return;
+            }
+            let html = '';
+            bouquetFlowers.forEach((flower, idx) => {
+                html += `<span style="font-size:2rem; display:inline-block; animation: float 0.5s ease;">${flower}</span>`;
+            });
+            bouquetPreview.innerHTML = html + `<div style="font-size:0.75rem; width:100%; margin-top:8px;">💐 ${bouquetFlowers.length} bunga dalam buket indahmu</div>`;
+        }
+        
+        document.getElementById('resetBouquetBtn').addEventListener('click', () => {
+            bouquetFlowers = [];
+            renderBouquet();
+            showToast('Buket direset ✨', 1500);
+        });
+        
+        document.getElementById('captureBouquetBtn').addEventListener('click', () => {
+            if (bouquetFlowers.length === 0) {
+                alert('✨ Tambahkan dulu bunga ke buketmu ya! ✨');
+                return;
+            }
+            // simulasi screenshot menggunakan html2canvas? tidak perlu eksternal, cukup notif & download teks cantik
+            const bouquetText = bouquetFlowers.join(' ');
+            navigator.clipboard.writeText(`Buket bungaku: ${bouquetText} 💐✨`).then(() => {
+                showToast('Buket tersalin! Bagikan ke temanmu 💕', 2000);
+            }).catch(() => {
+                alert('💖 Buket indahmu: ' + bouquetText);
+            });
+            triggerConfetti();
+        });
+        
+        function showToast(msg, duration) {
+            let toast = document.createElement('div');
+            toast.innerText = msg;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '80px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = '#ffb7c2';
+            toast.style.color = 'white';
+            toast.style.padding = '10px 24px';
+            toast.style.borderRadius = '50px';
+            toast.style.fontWeight = 'bold';
+            toast.style.zIndex = '1001';
+            toast.style.backdropFilter = 'blur(8px)';
+            toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), duration);
+        }
+        
+        // =============== 4. SURPRISE GIFT BOX ===============
+        const giftBox = document.getElementById('giftBox');
+        const surpriseContent = document.getElementById('surpriseContent');
+        let surpriseOpened = false;
+        
+        const surpriseMessages = [
+            "🎉 SELAMAT! kamu mendapatkan senyum gratis seumur hidup! 🎉",
+            "💖 surprise! kamu lebih berharga daripada berlian 💖",
+            "🌸 hari ini adalah harimu, nikmati setiap detiknya! 🌸",
+            "🍫 hadiah virtual: coklat dan pelukan hangat untukmu 🍫",
+            "✨ kejutan! kamu luar biasa dan jangan pernah lupa itu ✨",
+            "🎀 ternyata hadiah terbesar adalah senyum tulusmu 🎀"
+        ];
+        
+        giftBox.addEventListener('click', () => {
+            if (!surpriseOpened) {
+                surpriseContent.classList.add('show');
+                const randomMsg = surpriseMessages[Math.floor(Math.random() * surpriseMessages.length)];
+                document.getElementById('surpriseText').innerHTML = randomMsg;
+                surpriseOpened = true;
+                triggerConfetti();
+                // ganti ikon gift
+                document.querySelector('.gift-icon').innerHTML = '🎉';
+                showToast('Kejutan spesial untukmu! 💖', 2000);
+            } else {
+                // jika sudah dibuka, tetap bisa dapat pesan baru
+                const randomMsg = surpriseMessages[Math.floor(Math.random() * surpriseMessages.length)];
+                document.getElementById('surpriseText').innerHTML = randomMsg;
+                triggerConfetti();
+                showToast('✨ kejutan lain untukmu! ✨', 1500);
+            }
+        });
+        
+        // =============== CONFETTI EFFECT ===============
+        function triggerConfetti() {
+            const canvas = document.createElement('canvas');
+            canvas.classList.add('confetti-canvas');
+            document.body.appendChild(canvas);
+            const myConfetti = new ConfettiGenerator({ target: canvas, max: 150, size: 1.2, animate: true, props: ['circle', 'square'], colors: [[255, 165, 180], [255, 200, 150], [200, 180, 255], [255, 210, 210]] });
+            myConfetti.render();
+            setTimeout(() => {
+                canvas.remove();
+            }, 2000);
+        }
+        
+        function triggerMiniConfetti() {
+            const canvas = document.createElement('canvas');
+            canvas.classList.add('confetti-canvas');
+            document.body.appendChild(canvas);
+            const miniConfetti = new ConfettiGenerator({ target: canvas, max: 60, size: 0.8, animate: true, props: ['circle'], colors: [[255, 180, 190], [250, 210, 150]] });
+            miniConfetti.render();
+            setTimeout(() => canvas.remove(), 1200);
+        }
+        
+        // script confetti generator sederhana (ringan)
+        function ConfettiGenerator(params) {
+            let target = params.target;
+            let max = params.max || 100;
+            let size = params.size || 1;
+            let animate = params.animate !== false;
+            let colors = params.colors || [[165,104,159],[230,61,135],[240,150,150]];
+            let props = params.props || ['circle', 'square'];
+            let ctx = target.getContext('2d');
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            let particles = [];
+            
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                target.width = width;
+                target.height = height;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+            
+            for(let i=0; i<max; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height - height,
+                    size: (Math.random() * 5 + 3) * size,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotate: Math.random() * 360,
+                    speedX: (Math.random() - 0.5) * 3,
+                    speedY: Math.random() * 4 + 2,
+                    shape: props[Math.floor(Math.random() * props.length)]
+                });
+            }
+            
+            let animationId;
+            function draw() {
+                ctx.clearRect(0, 0, width, height);
+                for(let p of particles) {
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rotate * Math.PI/180);
+                    ctx.fillStyle = `rgb(${p.color[0]}, ${p.color[1]}, ${p.color[2]})`;
+                    if(p.shape === 'circle') {
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.size/2, 0, Math.PI*2);
+                        ctx.fill();
+                    } else {
+                        ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                    }
+                    ctx.restore();
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.rotate += 8;
+                    if(p.y > height + 50 || p.x < -50 || p.x > width+50) {
+                        p.x = Math.random() * width;
+                        p.y = -30;
+                    }
+                }
+                if(animate) animationId = requestAnimationFrame(draw);
+            }
+            this.render = () => { draw(); };
+            this.clear = () => { cancelAnimationFrame(animationId); target.remove(); };
+        }
+        
+        // Inisialisasi daily random
+        updateDailyRandom();
+        
+        // tambahkan efek riak saat load
+        setTimeout(() => {
+            triggerMiniConfetti();
+        }, 500);
+        
+        // Tambahkan floating love acak setiap 15 detik (happy vibe)
+        setInterval(() => {
+            createFloatingHeart();
+        }, 15000);
+        
+        // Simpan juga tombol reset surprise? tidak perlu karena gift sudah fun.
+        console.log("✨ Happy Blossom — kebahagiaan untukmu ✨");
+    })();
+</script>
+</body>
+</html>
